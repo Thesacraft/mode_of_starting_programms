@@ -1,3 +1,9 @@
+"""
+Author: Samuel B.
+discription: editor for using the main.py and making it easy to add and remove programms and modes
+Version:1.0
+"""
+
 import start_programms
 import json
 import os
