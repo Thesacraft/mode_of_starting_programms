@@ -6,6 +6,7 @@ plugin = start_programms.open_programms()
 modes = plugin.modes
 edit_modes = "edit/delete/create"
 json_files = plugin.files
+modes_edit = "delete/create"
 while True:
     while True:
         edit_mode = input(f"Choose what you wanna do({edit_modes})!")
@@ -26,6 +27,34 @@ while True:
                     del(temp)
                     json_file.close()
                 while True:
+                    mode_edit = input(f"Do you wanna create or wanna delete a programm?")
+                    if(mode_edit in modes_edit):
+                        if(mode_edit == "delete"):
+                            while True:
+                                with open("json/"+file) as json_file:
+                                    json_object = json.load(json_file)
+
+                                    entrys = []
+                                    for item in json_object:
+                                        entrys.append(item)
+                                    json_file.close()
+
+                                    entry = input(f"Choose a entry to delete(entrys:{entrys})!")
+                                    if entry in entrys:
+                                        try:
+                                            json_object.pop(entry)
+                                            print(json_object)
+                                            with open("json/"+file,"w") as fh:
+                                                fh.write(json.dumps(json_object))
+                                                fh.close()
+
+                                            break
+                                        except:
+                                            print("Thats not a Valid entry!")
+                                    elif entry == "change":
+
+                                        break
                     break
+
             else:
                 print(f'"{file}" is not a file! You must create it first!')
