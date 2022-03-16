@@ -3,14 +3,19 @@ import json
 import os
 
 plugin = start_programms.open_programms()
-modes = plugin.modes
+
 edit_modes = "edit/delete/create"
-json_files = plugin.files
+
 modes_edit = "delete/create"
 while True:
+    plugin.update()
+    modes = plugin.modes
+    json_files = plugin.files
     while True:
-        edit_mode = input(f"Choose what you wanna do({edit_modes})!")
-        if(edit_mode in edit_modes):
+        edit_mode = input(f"Choose what you wanna do({edit_modes})(to exit type exit)!")
+        if(edit_mode == "exit"):
+            exit()
+        elif(edit_mode in edit_modes):
             break
         print(f'"{edit_mode}" is not a Valid mode! Please enter one of these modes: {edit_modes}')
     if(edit_mode == "edit"):
@@ -28,7 +33,9 @@ while True:
                     json_file.close()
                 while True:
                     mode_edit = input(f"Do you wanna create or wanna delete a programm(change to change the mode)?")
-                    if(mode_edit in modes_edit):
+                    if(mode_edit == "change"):
+                        break
+                    elif(mode_edit in modes_edit):
                         if(mode_edit == "delete"):
                             while True:
                                 with open("json/"+file) as json_file:
@@ -107,6 +114,17 @@ while True:
                     print(f'"{name}" is not a valid Filename! it cannot be empty or start with change or exit')
             else:
                 print(f'The mode must be ended with ".json"(for example "{name}.json")')
+    if(edit_mode == "delete"):
+        dir = plugin.files
+        while True:
+            file_to_delete = input(f"You can delete one of these modes(change to change the mode):{dir}")
+            if(file_to_delete == "change"):
+                break
+            elif(file_to_delete in dir and file_to_delete.endswith(".json")):
+                os.remove(f"json/{file_to_delete}")
+                break
+            print(f"The file must end with .json and be in: {dir}")
+
 
 
 
