@@ -5,7 +5,7 @@ import os
 plugin = start_programms.open_programms()
 
 edit_modes = "edit/delete/create"
-
+break_again = False
 modes_edit = "delete/create"
 while True:
     plugin.update()
