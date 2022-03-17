@@ -63,6 +63,19 @@ class Editor():
             return True, f'"{mode}" was sucessfully created!'
         else:
             return False, f'"{mode}" could\'t be created because it already exists!'
-    def handleEditDelete(self,mode):
-        pass
+    def handleEditDelete(self,name,mode):
+        file = self.jsonFilePath(mode)
+        with open(file) as json_file:
+            json_object = json.load(json_file)
+            json_file.close()
+        if(name in json_object):
+            json_object.pop(name)
+        else:
+            return False,f'"{name}" is not a entry! please choose one of these to delete: {json_object}'
+        with open(file,"w") as fh:
+            fh.write(json.dumps(json_object))
+            fh.close()
+        return True, f'"{name}" was succesfully deleted!'
+
+
 
