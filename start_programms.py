@@ -14,16 +14,18 @@ class open_programms():
     def __init__(self):
         dir = os.listdir("json")
         self.modes = []
-        self.files = dir
+        self.files = []
         for mode in dir:
             if(mode.endswith(".json")):
+                self.files.append(mode)
                 self.modes.append(mode.replace(".json",""))
     def update(self):
         dir = os.listdir("json")
         self.modes = []
-        self.files = dir
+        self.files = []
         for mode in dir:
             if(mode.endswith(".json")):
+                self.files.append(mode)
                 self.modes.append(mode.replace(".json",""))
     def setup(self,mode):
         self.mode = mode
