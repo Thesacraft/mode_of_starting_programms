@@ -5,7 +5,7 @@ Version: 1.0
 """
 import start_programms
 
-open = start_programms.open_programms()
+open = start_programms.Open_programms()
 modes = ""
 for mode in open.modes:
     if modes == "":
@@ -21,4 +21,4 @@ while True:
 
 open.setup(mode)
 print(open.file)
-open.start()
+open.startProgramms()

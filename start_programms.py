@@ -10,7 +10,7 @@ import webbrowser
 import json
 
 
-class open_programms():
+class Open_programms():
     def __init__(self):
         dir = os.listdir("json")
         self.modes = []
@@ -33,12 +33,12 @@ class open_programms():
         self.mode = mode
         self.file = "json/" + mode + ".json"
 
-    def check_for_mode(self):
+    def checkForMode(self):
         if (not os.path.exists(self.file)):
             print(f'You idiot "{self.mode}" isn\'t a supported mode!')
         return os.path.exists(self.file)
 
-    def start(self):
+    def startProgramms(self):
         with open(self.file) as json_file:
             json_object = json.load(json_file)
             json_file.close()

@@ -8,7 +8,7 @@ import os
 import json
 import start_programms
 
-plugin = start_programms.open_programms()
+plugin = start_programms.Open_programms()
 
 edit_modes = "edit/delete/create"
 break_again = False
