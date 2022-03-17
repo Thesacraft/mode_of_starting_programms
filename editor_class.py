@@ -5,6 +5,7 @@ Version: 1.0
 """
 
 import json
+import os
 import start_programms
 
 class Editor():
@@ -18,8 +19,15 @@ class Editor():
         else:
             return True
     def modeToFile(self,mode):
-        mode+=".json"
+        if (self.checkIfModeorFile(mode)):
+            mode+=".json"
         return mode
+    def jsonFilePath(self,file):
+        file = self.modeToFile(file)
+        filepath = f"/json/{file}"
+        return filepath
+
+
     def updateVars(self):
         self.plugin.update()
         self.files = self.plugin.files
@@ -29,12 +37,32 @@ class Editor():
             if(not mode.endswith(".json")):
                 mode = self.modeToFile(mode)
         else:
-            return TypeError("Not A Valid Mode")
+            return False,TypeError(f'"{mode}"Not A Valid Mode! Enter one of these modes: {self.modes}')
         with open(mode,"w+") as fh:
             fh.write(json.dumps({}))
             fh.close()
         self.updateVars()
+        return True,f'"{mode.replace(".json","")}" was succesfully created!'
     def handleDelete(self,mode):
-        if(self.checkIfModeorFile(mode)):
-            pass
+        if(mode in self.modes or mode in self.files):
+            if(self.checkIfModeorFile(mode)):
+                mode += ".json"
+            try:
+                os.remove(mode)
+                return True,f'"{mode.replace(".json","")}" was succesfuly removed!'
+            except:
+                return False,TypeError("Is not a mode you can delete!")
+        return False,TypeError(f"\"{mode}\"Is not a mode! Please choose out of this list of modes: {self.modes}")
+    def handleEditCreate(self,name,entry,mode):
+        file = self.jsonFilePath(mode)
+        with open(file) as json_file:
+            json_object = json.load(json_file)
+            json_file.close()
+        if(not name in json_object):
+            json_object[name] = entry
+            return True, f'"{mode}" was sucessfully created!'
+        else:
+            return False, f'"{mode}" could\'t be created because it already exists!'
+    def handleEditDelete(self,mode):
+        pass
 
