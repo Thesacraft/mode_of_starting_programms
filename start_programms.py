@@ -16,26 +16,27 @@ class open_programms():
         self.modes = []
         self.files = []
         for mode in dir:
-            if(mode.endswith(".json")):
+            if (mode.endswith(".json")):
                 self.files.append(mode)
-                self.modes.append(mode.replace(".json",""))
+                self.modes.append(mode.replace(".json", ""))
+
     def update(self):
         dir = os.listdir("json")
         self.modes = []
         self.files = []
         for mode in dir:
-            if(mode.endswith(".json")):
+            if (mode.endswith(".json")):
                 self.files.append(mode)
-                self.modes.append(mode.replace(".json",""))
-    def setup(self,mode):
+                self.modes.append(mode.replace(".json", ""))
+
+    def setup(self, mode):
         self.mode = mode
         self.file = "json/" + mode + ".json"
 
     def check_for_mode(self):
-        if(not os.path.exists(self.file)):
+        if (not os.path.exists(self.file)):
             print(f'You idiot "{self.mode}" isn\'t a supported mode!')
         return os.path.exists(self.file)
-
 
     def start(self):
         with open(self.file) as json_file:
@@ -46,4 +47,3 @@ class open_programms():
                 webbrowser.open(json_object[item])
             elif os.path.exists(json_object[item]):
                 os.startfile(json_object[item])
-
