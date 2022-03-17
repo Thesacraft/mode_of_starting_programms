@@ -10,9 +10,35 @@ import start_programms
 
 class Editor():
     def __init__(self):
+        self.editor_modes_list = ["create","delete","edit"]
         self.plugin = start_programms.Open_programms()
         self.files = self.plugin.files
         self.modes = self.plugin.modes
+    def getEntrys(self,file):
+        with open(file) as json_file:
+            json_object = json.load(json_file)
+            json_file.close()
+        entrys = []
+        for item in json_object:
+            entrys.append(item)
+        return entrys
+    def exitEditor(self):
+        exit()
+    def checkIfExit(self,mode):
+        if(mode.strip().lower() == exit):
+            self.exitEditor()
+    def checkIfchange(self,mode):
+        self.checkIfExit(mode)
+        if(mode.strip().lower() == "change"):
+            return True
+        else:
+            return False
+    def checkIfModeIsEditormode(self,mode):
+        self.checkIfExit(mode)
+        if(mode.strip().lower() in self.editor_modes_list):
+            return True
+        else:
+            return False
     def checkIfModeorFile(self,mode):
         if(mode.endswith(".json")):
             return False
