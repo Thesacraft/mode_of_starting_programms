@@ -47,9 +47,12 @@ class Open_programms():
             json_file.close()
         for item in json_object:
             if item == "webbrowser":
-                webbrowser.open(json_object[item])
+                lst = json_object[item].split(';')
+                print(lst)
+                for i in lst:
+                    webbrowser.open(i)
             elif os.path.exists(json_object[item]):
-                if(self.os == "Windows"):
+                if(self.os.lower() == "windows"):
                     os.startfile(json_object[item])
                 else:
                     subprocess.Popen(json_object[item])
