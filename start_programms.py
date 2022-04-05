@@ -5,13 +5,16 @@ Version: 1.0
 """
 
 import os
+import subprocess
 import webbrowser
+import platform
 
 import json
 
 
 class Open_programms():
     def __init__(self):
+        self.os = platform.system()
         dir = os.listdir("json")
         self.modes = []
         self.files = []
@@ -46,4 +49,7 @@ class Open_programms():
             if item == "webbrowser":
                 webbrowser.open(json_object[item])
             elif os.path.exists(json_object[item]):
-                os.startfile(json_object[item])
+                if(self.os == "Windows"):
+                    os.startfile(json_object[item])
+                else:
+                    subprocess.Popen(json_object[item])
