@@ -20,5 +20,5 @@ while True:
         print(f'"{mode}" is not a valid mode! Please enter one of these modes: {open.modes}')
 
 open.setup(mode)
-print(open.file)
+print(f"starting programms...")
 open.startProgramms()

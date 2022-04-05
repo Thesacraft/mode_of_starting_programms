@@ -13,16 +13,6 @@ import json
 
 
 class Open_programms():
-    def __init__(self):
-        self.os = platform.system()
-        dir = os.listdir("json")
-        self.modes = []
-        self.files = []
-        for mode in dir:
-            if (mode.endswith(".json")):
-                self.files.append(mode)
-                self.modes.append(mode.replace(".json", ""))
-
     def update(self):
         dir = os.listdir("json")
         self.modes = []
@@ -31,6 +21,11 @@ class Open_programms():
             if (mode.endswith(".json")):
                 self.files.append(mode)
                 self.modes.append(mode.replace(".json", ""))
+    def __init__(self):
+        self.os = platform.system()
+        self.update() # creates variables
+
+
 
     def setup(self, mode):
         self.mode = mode
