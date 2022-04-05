@@ -5,9 +5,9 @@ Version: 1.0
 """
 
 import os
+import platform
 import subprocess
 import webbrowser
-import platform
 
 import json
 
@@ -21,11 +21,10 @@ class Open_programms():
             if (mode.endswith(".json")):
                 self.files.append(mode)
                 self.modes.append(mode.replace(".json", ""))
+
     def __init__(self):
         self.os = platform.system()
-        self.update() # creates variables
-
-
+        self.update()  # creates variables
 
     def setup(self, mode):
         self.mode = mode
@@ -47,7 +46,7 @@ class Open_programms():
                 for i in lst:
                     webbrowser.open(i)
             elif os.path.exists(json_object[item]):
-                if(self.os.lower() == "windows"):
+                if (self.os.lower() == "windows"):
                     os.startfile(json_object[item])
                 else:
                     subprocess.Popen(json_object[item])

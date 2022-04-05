@@ -33,7 +33,6 @@ class Editor():
         else:
             return True
 
-
     def checkIfExit(self, mode):
         if (mode.strip().lower() == "exit"):
             exit()
