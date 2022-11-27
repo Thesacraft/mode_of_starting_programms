@@ -14,6 +14,8 @@ for mode in open.modes:
         modes += "/" + mode
 while True:
     mode = input(f"what mode ({modes})?")
+    if mode == "exit":
+        exit()
     if (mode in open.modes):
         break
     else:
