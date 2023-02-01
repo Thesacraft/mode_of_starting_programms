@@ -1,6 +1,6 @@
 """
-discription: this is a basic programm that let's you start mutiple programms with diffrent mode's
-Author:Samuel B.
+description: this is a basic programm that lets you start multiple programms with different mode's
+Author: Samuel B.
 Version: 1.0
 """
 import start_programms
