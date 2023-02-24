@@ -1,6 +1,6 @@
 """
 Author: Samuel B.
-discription: this is to start programms that are listed in a json file properly
+description: this is to start programms that are listed in a json file properly
 Version: 1.0
 """
 
