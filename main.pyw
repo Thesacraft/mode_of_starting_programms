@@ -7,6 +7,3 @@ import start_programms
 
 app = start_programms.Open_programms_tkinter()
 app.run()
-
-
-

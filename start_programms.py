@@ -7,10 +7,8 @@ Version: 1.0
 import os
 import platform
 import subprocess
-import sys
 import tkinter
 import webbrowser
-from tkinter.messagebox import showinfo
 
 import json
 
@@ -57,13 +55,12 @@ class Open_programms():
 class Open_programms_tkinter():
     def __init__(self):
         self.root = tkinter.Tk()
+        self.root.title("Start Programms")
         self.logic_class = Open_programms()
 
     def _items_selected(self, event):
         # get all selected indices
         selected_mode = self.listbox.get(self.listbox.curselection()[0])
-        # get selected items
-        msg = f'Sarting programms of mode: {selected_mode}'
         self.logic_class.setup(selected_mode)
         self.logic_class.startProgramms()
         self.root.quit()
