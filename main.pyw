@@ -5,5 +5,5 @@ Version: 1.0
 """
 import start_programms
 
-app = start_programms.Open_programms_tkinter()
+app = start_programms.OpenProgrammsTkinter()
 app.run()

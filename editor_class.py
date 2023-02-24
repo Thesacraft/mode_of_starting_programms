@@ -5,7 +5,6 @@ Version: 1.0
 """
 
 import os
-
 import json
 import start_programms
 
@@ -13,11 +12,11 @@ import start_programms
 class Editor():
     def __init__(self):
         self.editor_modes_list = ["create", "delete", "edit"]
-        self.plugin = start_programms.Open_programms()
+        self.plugin = start_programms.OpenProgramms()
         self.files = self.plugin.files
         self.modes = self.plugin.modes
 
-    def getEntrys(self, file):
+    def get_entrys(self, file):
         with open(file) as json_file:
             json_object = json.load(json_file)
             json_file.close()
@@ -26,67 +25,67 @@ class Editor():
             entrys.append(item)
         return entrys
 
-    def checkIfNewEntry(self, file, entry):
-        entrys = self.getEntrys(file)
-        if (entry in entrys):
+    def check_if_new_entry(self, file, entry):
+        entrys = self.get_entrys(file)
+        if entry in entrys:
             return False
         else:
             return True
 
-    def checkIfExit(self, mode):
-        if (mode.strip().lower() == "exit"):
+    def check_if_exit(self, mode):
+        if mode.strip().lower() == "exit":
             exit()
 
-    def checkIfchange(self, mode):
-        self.checkIfExit(mode)
-        if (mode.strip().lower() == "change"):
+    def check_if_change(self, mode):
+        self.check_if_exit(mode)
+        if mode.strip().lower() == "change":
             return True
         else:
             return False
 
-    def checkIfModeIsEditormode(self, mode):
-        self.checkIfExit(mode)
-        if (mode.strip().lower() in self.editor_modes_list):
+    def check_if_mode_is_editormode(self, mode):
+        self.check_if_exit(mode)
+        if mode.strip().lower() in self.editor_modes_list:
             return True
         else:
             return False
 
-    def checkIfModeorFile(self, mode):
-        if (mode.endswith(".json")):
+    def check_if_mode_or_file(self, mode):
+        if mode.endswith(".json"):
             return False
         else:
             return True
 
-    def modeToFile(self, mode):
-        if (self.checkIfModeorFile(mode)):
+    def mode_to_file(self, mode):
+        if self.check_if_mode_or_file(mode):
             mode += ".json"
         return mode
 
-    def jsonFilePath(self, file):
-        file = self.modeToFile(file)
+    def json_file_path(self, file):
+        file = self.mode_to_file(file)
         filepath = f"json/{file}"
         return filepath
 
-    def updateVars(self):
+    def update_vars(self):
         self.plugin.update()
         self.files = self.plugin.files
         self.modes = self.plugin.modes
 
-    def handleCreate(self, mode):
-        if (not mode in self.modes and not mode == "" and not self.modeToFile(mode) in self.files):
+    def handle_create(self, mode):
+        if not mode in self.modes and not mode == "" and not self.mode_to_file(mode) in self.files:
             pass
         else:
             return False, TypeError(f'"{mode}" is already created!')
-        file = self.jsonFilePath(mode)
+        file = self.json_file_path(mode)
         with open(file, "w+") as fh:
             fh.write(json.dumps({}))
             fh.close()
-        self.updateVars()
+        self.update_vars()
         return True, f'"{mode.replace(".json", "")}" was succesfully created!'
 
-    def handleDelete(self, mode):
-        if (mode in self.modes or mode in self.files):
-            file = self.jsonFilePath(mode)
+    def handle_delete(self, mode):
+        if mode in self.modes or mode in self.files:
+            file = self.json_file_path(mode)
             try:
                 os.remove(file)
                 return True, f'"{mode.replace(".json", "")}" was succesfuly removed!'
@@ -94,12 +93,12 @@ class Editor():
                 return False, TypeError("Is not a mode you can delete!")
         return False, TypeError(f"\"{mode}\"Is not a mode! Please choose out of this list of modes: {self.modes}")
 
-    def handleEditCreate(self, name, entry, mode):
-        file = self.jsonFilePath(mode)
+    def handle_edit_create(self, name, entry, mode):
+        file = self.json_file_path(mode)
         with open(file) as json_file:
             json_object = json.load(json_file)
             json_file.close()
-        if (self.checkIfNewEntry(file, name)):
+        if self.check_if_new_entry(file, name):
             json_object[name] = entry
             with open(file, "w") as fh:
                 fh.write(json.dumps(json_object))
@@ -107,16 +106,16 @@ class Editor():
         else:
             return False, f'"{name}" could\'t be created because it already exists!'
 
-    def handleEditDelete(self, name, mode):
-        file = self.jsonFilePath(mode)
+    def handle_edit_delete(self, name, mode):
+        file = self.json_file_path(mode)
         with open(file) as json_file:
             json_object = json.load(json_file)
             json_file.close()
-        if (not self.checkIfNewEntry(file, name)):
+        if not self.check_if_new_entry(file, name):
             json_object.pop(name)
         else:
             return False, TypeError(
-                f'"{name}" is not a entry! please choose one of these to delete: {self.getEntrys(file)}')
+                f'"{name}" is not a entry! please choose one of these to delete: {self.get_entrys(file)}')
         with open(file, "w") as fh:
             fh.write(json.dumps(json_object))
             fh.close()

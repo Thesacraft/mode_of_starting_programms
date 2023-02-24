@@ -13,7 +13,7 @@ editor_modes = "create/delete/edit"
 while True:
     while True:
         editor_mode = input(f'Choose What you wanna do({editor_modes})(exit to exit)!').strip().lower()
-        if (editor.checkIfModeIsEditormode(editor_mode)):
+        if (editor.check_if_mode_is_editormode(editor_mode)):
             break
         else:
             print(
@@ -22,25 +22,25 @@ while True:
         while True:
             mode = input(
                 f"What mode do you wanna edit({editor.modes})(exit to exit)(change to change)!").strip().lower()
-            if (editor.checkIfchange(mode)):
+            if (editor.check_if_change(mode)):
                 break
             if (mode in editor.modes):
-                file = editor.jsonFilePath(mode)
+                file = editor.json_file_path(mode)
                 while True:
                     mode_editor = input(
-                        f'Do You Wanna create or wanna delete a entry(entrys: {editor.getEntrys(file)})?(exit to exit)(change to change)').strip().lower()
-                    if (editor.checkIfchange(mode_editor)):
+                        f'Do You Wanna create or wanna delete a entry(entrys: {editor.get_entrys(file)})?(exit to exit)(change to change)').strip().lower()
+                    if (editor.check_if_change(mode_editor)):
                         break
                     if (mode_editor == "create" or mode_editor == "delete"):
                         if (mode_editor == "create"):
                             while True:
                                 name = input(
                                     "Prompt a name for the Programm or for a webbrowser \"webbrowser\" (exit to exit)(change to change)!").strip().lower()
-                                if (editor.checkIfchange(name)):
+                                if (editor.check_if_change(name)):
                                     break
                                 entry = input(
                                     "Prompt the path to the programm or the websites seperatet by \";\" (exit to exit)(change to change)!")
-                                [success, error] = editor.handleEditCreate(name, entry, mode)
+                                [success, error] = editor.handle_edit_create(name, entry, mode)
                                 if (success):
                                     print(error)
                                     break
@@ -48,12 +48,12 @@ while True:
                                     print(error)
                         elif (mode_editor == "delete"):
                             while True:
-                                entrys = editor.getEntrys(file)
+                                entrys = editor.get_entrys(file)
                                 entry = input(
                                     f"Choose one of ({entrys}) these to delete(exit to exit)(change to change)!").strip().lower()
-                                if (editor.checkIfchange(entry)):
+                                if (editor.check_if_change(entry)):
                                     break
-                                [success, error] = editor.handleEditDelete(entry, mode)
+                                [success, error] = editor.handle_edit_delete(entry, mode)
                                 if (success):
                                     print(error)
                                     break
@@ -62,12 +62,12 @@ while True:
     elif (editor_mode == "create"):
         while True:
             mode = input(f"Input the name of the mode(exit to exit)(change to change)!")
-            if (editor.checkIfchange(mode)):
+            if (editor.check_if_change(mode)):
                 break
-            [success, error] = editor.handleCreate(mode)
+            [success, error] = editor.handle_create(mode)
             if (success):
                 print(error)
-                editor.updateVars()
+                editor.update_vars()
                 break
             else:
                 print(error)
@@ -75,12 +75,12 @@ while True:
         while True:
             mode = input(
                 f"Input the mode that should be deleted(currently availabel modes:{editor.modes})(exit to exit)(change to change)!")
-            if (editor.checkIfchange(mode)):
+            if (editor.check_if_change(mode)):
                 break
-            [success, error] = editor.handleDelete(mode)
+            [success, error] = editor.handle_delete(mode)
             if (success):
                 print(error)
-                editor.updateVars()
+                editor.update_vars()
                 break
             else:
                 print(error)
